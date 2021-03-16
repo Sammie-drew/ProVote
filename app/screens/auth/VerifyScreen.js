@@ -29,8 +29,7 @@ const VerifyScreen = ({navigation}) => {
 
   const submitHandler = ({nin}) => {
     dispatch(verifyNin(nin));
-
-    if (success) navigation.navigate('Register', userNininfo);
+    if (success) navigation.push('Register', userNininfo);
   };
   return (
     <View style={styles.header}>

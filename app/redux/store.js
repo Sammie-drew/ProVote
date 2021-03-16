@@ -10,7 +10,8 @@ import {
   userLoginReducer,
   userRegisterReducer,
 } from './reducers/userReducer';
-import {votingReducer} from './reducers/voteReducer';
+
+import {countReducer, votingReducer} from './reducers/voteReducer';
 
 const rootReducer = combineReducers({
   category: getCategoryReducer,
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   userDetails: userDetailsReducer,
   getPolls: getPollsReducer,
   postVote: votingReducer,
+  putVote: countReducer,
 });
 
 export default store = createStore(rootReducer, applyMiddleware(ReduxThunk));

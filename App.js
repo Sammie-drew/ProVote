@@ -27,6 +27,7 @@ export default function App() {
     setIsLoading(true);
     setIsReady(false);
     const data = await storage.getUser();
+    console.log('data :>> ', data);
     if (data) setUser(data);
     setIsReady(true);
     setIsLoading(false);

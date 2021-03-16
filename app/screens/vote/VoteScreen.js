@@ -9,15 +9,16 @@ const VoteScreen = ({navigation}) => {
   const pollList = useSelector((state) => state.getPolls);
   const {loading, error, polls} = pollList;
 
-  console.log('polls :>> ', polls.isElectionValid);
+  console.log('polls :>> ', polls.count);
+
   useEffect(() => {
     dispatch(fetchPolls());
-  }, [dispatch, fetchPolls]);
+  }, [dispatch]);
   return (
     <View style={styles.screen}>
       <View style={styles.miniCard}>
         <Text style={{fontSize: 15, fontWeight: 'bold'}}>
-          Available vote for the day
+          Available Poll for the day
         </Text>
       </View>
       <TouchableOpacity
@@ -26,8 +27,21 @@ const VoteScreen = ({navigation}) => {
         onPress={() => navigation.navigate('CandidateList', polls)}>
         <Text style={styles.notice}>{polls.title}</Text>
         <Ionicons name="md-finger-print" size={70} color="purple" />
-        <Text style={{fontSize: 17, color: 'green', fontWeight: 'bold'}}>
+        <Text
+          style={{
+            fontSize: 17,
+            color: 'green',
+            fontWeight: 'bold',
+          }}>
           Status: {polls.isElectionValid ? 'Valid' : 'Outdated'}
+        </Text>
+        <Text
+          style={{
+            fontSize: 17,
+            color: 'green',
+            fontWeight: 'bold',
+          }}>
+          Number of Voter's Voted : {polls.count}
         </Text>
       </TouchableOpacity>
     </View>

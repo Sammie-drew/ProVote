@@ -99,11 +99,10 @@ export const login = (nin, password) => async (dispatch) => {
 
     const {ok, data} = await apiClient.post('/users/login', {nin, password});
 
-    console.log('data.token :>> ', JSON.stringify(data.token));
-
     !ok
       ? dispatch({
           type: USER_LOGIN_FAIL,
+
           payload: data.message,
         })
       : dispatch({
@@ -121,7 +120,7 @@ export const login = (nin, password) => async (dispatch) => {
   }
 };
 
-export const logOut = async () => {
+export const logOut = () => async (dispatch) => {
   storage.removeToken();
   dispatch({
     type: USER_LOGOUT,
@@ -139,8 +138,6 @@ export const getUserDetails = () => async (dispatch) => {
 
     const token = await storage.getToken();
 
-    console.log('token in details actions :>> ', token);
-
     const {data, ok} = await apiClient.get(
       `/users/profile`,
       {},
@@ -150,7 +147,6 @@ export const getUserDetails = () => async (dispatch) => {
         },
       },
     );
-    console.log('data :>> ', data);
 
     !ok
       ? dispatch({

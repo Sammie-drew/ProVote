@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {
   KeyboardAvoidingView,
   ScrollView,
@@ -30,7 +30,8 @@ const LoginScreen = ({navigation}) => {
   const {loading, success, token, error} = useSelector(
     (state) => state.loginUser,
   );
-  console.log('token :>> ', token);
+
+  console.log('token :>> ', token, success && 'true');
 
   const submitHandler = ({nin, password}) => {
     dispatch(login(nin, password));
@@ -38,7 +39,7 @@ const LoginScreen = ({navigation}) => {
 
   return (
     <View style={styles.header}>
-      <StatusBar backgroundColor="purple" />
+      <StatusBar backgroundColor="purple" animated={true} />
       <ScrollView showsVerticalScrollIndicator={false}>
         <AppForm
           initialValues={{
@@ -75,7 +76,7 @@ const LoginScreen = ({navigation}) => {
         </AppForm>
         <View style={{flexDirection: 'row', margin: 20}}>
           <Text>Don't have an account ? </Text>
-          <TouchableOpacity onPress={() => navigation.navigate('Verify')}>
+          <TouchableOpacity onPress={() => navigation.push('Verify')}>
             <Text style={{color: 'purple'}}>Register with ProVote</Text>
           </TouchableOpacity>
         </View>

@@ -1,10 +1,11 @@
 import React, {useEffect} from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 
-import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import {useDispatch, useSelector} from 'react-redux';
-import Footer from '../components/Footer';
 import {getUserDetails, logOut} from '../redux/actions/userActions';
+
+import EvilIcons from 'react-native-vector-icons/EvilIcons';
+import Footer from '../components/Footer';
 
 const ProfileScreen = ({navigation}) => {
   const dispatch = useDispatch();
@@ -14,14 +15,12 @@ const ProfileScreen = ({navigation}) => {
   console.log('user :>> ', user);
 
   useEffect(() => {
-    dispatch(getUserDetails());
-  }, []);
+    if (user) dispatch(getUserDetails());
+  }, [dispatch]);
 
   const logOutHandler = () => {
     dispatch(logOut());
-    dispatch({
-      type: USER_DETAILS_RESET,
-    });
+    navigation.navigate('Feed');
   };
 
   return (
