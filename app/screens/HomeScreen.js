@@ -17,7 +17,7 @@ const HomeScreen = ({navigation}) => {
   const dispatch = useDispatch();
 
   const categoryList = useSelector((state) => state.category);
-  const {loading, error, category} = categoryList;
+  const {category} = categoryList;
 
   useEffect(() => {
     dispatch(fetchCategory());
@@ -25,7 +25,7 @@ const HomeScreen = ({navigation}) => {
 
   return (
     <View style={styles.screen}>
-      <StatusBar barStyle="light-content" backgroundColor="purple" />
+      <StatusBar barStyle="dark-content" backgroundColor="white" />
 
       <Image style={styles.image} source={require('../assets/logo.png')} />
       <TouchableOpacity

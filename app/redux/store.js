@@ -3,7 +3,11 @@ import ReduxThunk from 'redux-thunk';
 
 // reducers
 import {getCategoryReducer} from './reducers/categoryReducer';
-import {getCandidateReducer, getPollsReducer} from './reducers/pollReducers';
+import {
+  getCandidateReducer,
+  getPollOptionsReducer,
+  getPollsReducer,
+} from './reducers/pollReducers';
 import {
   ninVerifyReducer,
   userDetailsReducer,
@@ -11,7 +15,7 @@ import {
   userRegisterReducer,
 } from './reducers/userReducer';
 
-import {countReducer, votingReducer} from './reducers/voteReducer';
+import {votingReducer} from './reducers/voteReducer';
 
 const rootReducer = combineReducers({
   category: getCategoryReducer,
@@ -22,7 +26,7 @@ const rootReducer = combineReducers({
   userDetails: userDetailsReducer,
   getPolls: getPollsReducer,
   postVote: votingReducer,
-  putVote: countReducer,
+  getPollOptions: getPollOptionsReducer,
 });
 
 export default store = createStore(rootReducer, applyMiddleware(ReduxThunk));

@@ -17,7 +17,6 @@ import SubmitButton from '../../components/forms/SumbitButton';
 import {useDispatch, useSelector} from 'react-redux';
 import {login} from '../../redux/actions/userActions';
 import ErrorMessage from '../../components/forms/ErrorMessage';
-import storage from '../../redux/storage';
 
 const validationSchema = Yup.object().shape({
   nin: Yup.string().required().label('National Identification Number'),
@@ -27,11 +26,7 @@ const validationSchema = Yup.object().shape({
 const LoginScreen = ({navigation}) => {
   const dispatch = useDispatch();
 
-  const {loading, success, token, error} = useSelector(
-    (state) => state.loginUser,
-  );
-
-  console.log('token :>> ', token, success && 'true');
+  const {loading, error} = useSelector((state) => state.loginUser);
 
   const submitHandler = ({nin, password}) => {
     dispatch(login(nin, password));
@@ -39,7 +34,7 @@ const LoginScreen = ({navigation}) => {
 
   return (
     <View style={styles.header}>
-      <StatusBar backgroundColor="purple" animated={true} />
+      <StatusBar backgroundColor="white" barStyle="dark-content" />
       <ScrollView showsVerticalScrollIndicator={false}>
         <AppForm
           initialValues={{
@@ -74,14 +69,14 @@ const LoginScreen = ({navigation}) => {
 
           <SubmitButton title="Login" loading={loading} />
         </AppForm>
-        <View style={{flexDirection: 'row', margin: 20}}>
+        <View style={{flexDirection: 'row', margin: 10}}>
           <Text>Don't have an account ? </Text>
           <TouchableOpacity onPress={() => navigation.push('Verify')}>
             <Text style={{color: 'purple'}}>Register with ProVote</Text>
           </TouchableOpacity>
         </View>
+        <Footer />
       </ScrollView>
-      <Footer />
     </View>
   );
 };
@@ -91,9 +86,10 @@ export default LoginScreen;
 const styles = StyleSheet.create({
   header: {
     flex: 1,
-    marginTop: 30,
-    marginHorizontal: 30,
+    paddingTop: 30,
+    paddingHorizontal: 30,
     justifyContent: 'space-between',
+    backgroundColor: 'white',
   },
   headerText: {
     fontSize: 20,

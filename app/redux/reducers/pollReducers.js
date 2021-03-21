@@ -5,6 +5,9 @@ import {
   GET_CANDIDATES_FAIL,
   GET_CANDIDATES_REQUEST,
   GET_CANDIDATES_SUCCESS,
+  GET_POLL_OPTIONS_FAIL,
+  GET_POLL_OPTIONS_REQUEST,
+  GET_POLL_OPTIONS_SUCCESS,
 } from '../constants/pollConstants';
 
 export const getCandidateReducer = (state = {candidates: []}, action) => {
@@ -22,6 +25,31 @@ export const getCandidateReducer = (state = {candidates: []}, action) => {
       };
 
     case GET_CANDIDATES_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+
+    default:
+      return state;
+  }
+};
+
+export const getPollOptionsReducer = (state = {pollOptions: []}, action) => {
+  switch (action.type) {
+    case GET_POLL_OPTIONS_REQUEST:
+      return {
+        loading: true,
+        pollOptions: [],
+      };
+
+    case GET_POLL_OPTIONS_SUCCESS:
+      return {
+        loading: false,
+        pollOptions: action.payload,
+      };
+
+    case GET_POLL_OPTIONS_FAIL:
       return {
         loading: false,
         error: action.payload,

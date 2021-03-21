@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+
 import InfoList from '../components/InfoList';
 
 // Icons
@@ -14,7 +15,6 @@ import Entypo from 'react-native-vector-icons/Entypo';
 
 const ProfileListScreen = ({navigation, route}) => {
   const user = route.params;
-  console.log('user :>> ', user);
   const [visible, setVisible] = useState(true);
   const [icon, setIcon] = useState('eye-with-line');
 
@@ -38,12 +38,27 @@ const ProfileListScreen = ({navigation, route}) => {
         <Text style={styles.cardText}>Credentials</Text>
       </View>
       <ScrollView>
+        <Text>FistName</Text>
         <InfoList details={user.firstName} />
+        <Text>LastName</Text>
+
         <InfoList details={user.lastName} />
+        <Text>MiddleName</Text>
+
         <InfoList details={user.middleName} />
+        <Text>Phone Number</Text>
+
         <InfoList details={user.phoneNumber} />
+        <Text>State</Text>
+
         <InfoList details={user.state.state} />
+        <Text>NIN</Text>
+
+        <InfoList details={user.nin} />
+        <Text>Date of Birth</Text>
+
         <InfoList details={user.dob} />
+        <Text>VoterID</Text>
 
         <TouchableOpacity
           style={{alignSelf: 'center', margin: 10}}

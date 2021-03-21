@@ -1,5 +1,13 @@
 import React, {useEffect} from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {
+  Dimensions,
+  StatusBar,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useDispatch, useSelector} from 'react-redux';
 import {fetchPolls} from '../../redux/actions/pollActions';
@@ -7,15 +15,15 @@ import {fetchPolls} from '../../redux/actions/pollActions';
 const VoteScreen = ({navigation}) => {
   const dispatch = useDispatch();
   const pollList = useSelector((state) => state.getPolls);
-  const {loading, error, polls} = pollList;
-
-  console.log('polls :>> ', polls.count);
+  const {polls} = pollList;
 
   useEffect(() => {
     dispatch(fetchPolls());
-  }, [dispatch]);
+  }, [dispatch, navigation]);
+
   return (
     <View style={styles.screen}>
+      <StatusBar backgroundColor="white" barStyle="dark-content" />
       <View style={styles.miniCard}>
         <Text style={{fontSize: 15, fontWeight: 'bold'}}>
           Available Poll for the day
@@ -62,10 +70,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     elevation: 5,
+    borderRadius: 10,
+    marginBottom: 20,
   },
   notice: {
     color: 'green',
-    fontSize: 20,
+    fontSize: 17,
     fontWeight: 'bold',
     fontStyle: 'italic',
   },

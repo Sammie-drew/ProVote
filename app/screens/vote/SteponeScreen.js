@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {Alert, StyleSheet, Text, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 
 import * as Yup from 'yup';
+import FingerprintScanner from 'react-native-fingerprint-scanner';
 
 import AppForm from '../../components/forms/AppForm';
 import AppFormField from '../../components/forms/AppFormField';
@@ -17,43 +18,39 @@ const validationSchema = Yup.object().shape({
 
 const SteponeScreen = ({navigation, route}) => {
   const voterOptions = route.params;
-  console.log('voterOptions :>> ', voterOptions);
+
   const {poll: poll_Id, _id: id} = voterOptions;
 
   const dispatch = useDispatch();
-  const {loading, error, data, success} = useSelector(
-    (state) => state.postVote,
-  );
+  const {loading, error, success} = useSelector((state) => state.postVote);
 
-  console.log(
-    'loading, error, data, success :>> ',
-    loading,
-    error,
-    data,
-    success,
-  );
-  const voteHandler = ({nin, votersId}) => {
+  const voteHandler = async ({nin, votersId}) => {
+    FingerprintScanner.authenticate({
+      title: 'ProVote',
+      cancelButton: 'Cancel',
+      description: 'Put your fingerprint before you are allowed to vote',
+      subTitle: 'Advanced Voting System',
+    }).then((result) => result && console.log(`I am working`));
+
+    console.log(`it works here`);
     dispatch(vote(poll_Id, nin, votersId, id));
-    if (success) return navigation.push('StepTwo', poll_Id);
-  };
 
-  console.log('data :>> ', data);
-  console.log('error :>> ', error);
+    success &&
+      Alert.alert(
+        'Provote Voting Scheme',
+        'You have successfully casted your vote',
+        [
+          {
+            text: 'Okay',
+            style: 'destructive',
+            onPress: () => navigation.navigate('Vote'),
+          },
+        ],
+      );
+  };
 
   return (
     <View style={styles.screen}>
-      {success && (
-        <Text
-          style={{
-            color: 'purple',
-            fontFamily: 'Roboto',
-            fontSize: 15,
-            fontWeight: '900',
-          }}>
-          {/* 5657649854147673 */}
-          Successfully voted
-        </Text>
-      )}
       <AppForm
         initialValues={{
           nin: '',

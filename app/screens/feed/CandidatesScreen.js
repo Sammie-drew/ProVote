@@ -1,5 +1,12 @@
 import React, {useEffect} from 'react';
-import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {
+  ActivityIndicator,
+  FlatList,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useDispatch, useSelector} from 'react-redux';
 
@@ -19,34 +26,36 @@ const CandidatesScreen = ({navigation, route}) => {
     dispatch(fetchCandidates(category._id));
   }, [dispatch, fetchCandidates]);
 
-  return (
-    <View style={styles.screen}>
-      <FlatList
-        data={candidates}
-        keyExtractor={(item) => item._id}
-        numColumns={2}
-        showsVerticalScrollIndicator={false}
-        renderItem={({item}) => (
-          <CandidateCard
-            name={item.value}
-            party={item.party}
-            description={item.about}
-            onPress={() => navigation.navigate('CandidateProfile', item)}
-          />
-        )}
-        ListHeaderComponent={() => (
-          <View style={styles.topic}>
-            <TouchableOpacity
-              style={{position: 'absolute', left: 30, zIndex: 1}}
-              onPress={() => navigation.goBack()}>
-              <Ionicons name="ios-arrow-back" size={24} color="black" />
-            </TouchableOpacity>
-            <Text style={styles.topicText}>CANDIDATES</Text>
-          </View>
-        )}
-        ListFooterComponent={() => <Footer />}
-      />
+  return loading ? (
+    <View style={{flex: 1, justifyContent: 'center'}}>
+      <ActivityIndicator size="large" color="purple" />
     </View>
+  ) : (
+    <FlatList
+      data={candidates}
+      keyExtractor={(item) => item._id}
+      numColumns={2}
+      showsVerticalScrollIndicator={false}
+      renderItem={({item}) => (
+        <CandidateCard
+          name={item.value}
+          party={item.party}
+          description={item.about}
+          onPress={() => navigation.navigate('CandidateProfile', item)}
+        />
+      )}
+      ListHeaderComponent={() => (
+        <View style={styles.topic}>
+          <TouchableOpacity
+            style={{position: 'absolute', left: 30, zIndex: 1}}
+            onPress={() => navigation.goBack()}>
+            <Ionicons name="ios-arrow-back" size={24} color="black" />
+          </TouchableOpacity>
+          <Text style={styles.topicText}>CANDIDATES</Text>
+        </View>
+      )}
+      ListFooterComponent={() => <Footer />}
+    />
   );
 };
 

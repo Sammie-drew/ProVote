@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
   title: {
     color: '#000',
     fontWeight: 'bold',
-    fontSize: 20,
+    fontSize: 17,
     justifyContent: 'center',
   },
   headerTitle: {

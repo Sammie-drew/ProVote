@@ -1,5 +1,14 @@
 import React, {useEffect} from 'react';
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {
+  ActivityIndicator,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+
+import FingerprintScanner from 'react-native-fingerprint-scanner';
 
 import {useDispatch, useSelector} from 'react-redux';
 import {getUserDetails, logOut} from '../redux/actions/userActions';
@@ -9,21 +18,23 @@ import Footer from '../components/Footer';
 
 const ProfileScreen = ({navigation}) => {
   const dispatch = useDispatch();
-  const {user, loading, error} = useSelector((state) => state.userDetails);
+  const {user, loading} = useSelector((state) => state.userDetails);
 
-  console.log('error :>> ', error);
-  console.log('user :>> ', user);
+  const {token} = useSelector((state) => state.loginUser);
 
   useEffect(() => {
-    if (user) dispatch(getUserDetails());
-  }, [dispatch]);
+    dispatch(getUserDetails());
+  }, [token]);
 
   const logOutHandler = () => {
     dispatch(logOut());
-    navigation.navigate('Feed');
   };
 
-  return (
+  return loading ? (
+    <View style={{flex: 1, justifyContent: 'center'}}>
+      <ActivityIndicator size="large" color="purple" />
+    </View>
+  ) : (
     <View style={styles.screen}>
       <View style={styles.circle}>
         <View>
@@ -47,7 +58,17 @@ const ProfileScreen = ({navigation}) => {
       <View style={styles.card}>
         <Text style={styles.info}>View Information</Text>
         <TouchableOpacity
-          onPress={() => navigation.navigate('ProfileList', user)}>
+          onPress={() => {
+            FingerprintScanner.authenticate({
+              title: 'Vote',
+              cancelButton: 'Cancel',
+              description:
+                'Put your fingerprint to before you are allowed to view this credential',
+              fallbackEnabled: true,
+            }).then(() => {
+              navigation.navigate('ProfileList', user);
+            });
+          }}>
           <EvilIcons name="chevron-right" size={35} color="purple" />
         </TouchableOpacity>
       </View>

@@ -1,14 +1,80 @@
 import React, {useEffect} from 'react';
-import {Alert, FlatList, StyleSheet, Text, View} from 'react-native';
+import {
+  Alert,
+  FlatList,
+  StyleSheet,
+  View,
+  Dimensions,
+  ActivityIndicator,
+} from 'react-native';
+
+import {BarChart} from 'react-native-chart-kit';
+import {useDispatch, useSelector} from 'react-redux';
 
 import CandidateCard from '../../components/CandidateCard';
+import {fetchPollOptions} from '../../redux/actions/pollActions';
 
 const CandidateList = ({navigation, route}) => {
   const polls = route.params;
 
-  console.log('polls :>> ', polls.pollOptions);
+  const dispatch = useDispatch();
 
-  return (
+  const options = useSelector((state) => state.getPollOptions);
+
+  const {loading, pollOptions} = options;
+
+  console.log('pollOptions :>> ', pollOptions);
+
+  useEffect(() => {
+    dispatch(fetchPollOptions(polls._id));
+  }, [dispatch]);
+
+  const data = {
+    labels: [],
+    datasets: [
+      {
+        data: [],
+      },
+    ],
+  };
+
+  data.labels.push(...pollOptions.map((option) => option.value));
+  data.datasets[0].data.push(
+    ...pollOptions.map((option) => option.votes.length),
+  );
+  // console.log(data.datasets[0]);
+  console.log(
+    'pollOptions.map((option) => option.votes.length) :>> ',
+    pollOptions.map((option) => option.votes.length),
+  );
+  console.log(
+    'pollOptions.map((option) => option.value) :>> ',
+    pollOptions.map((option) => option.value),
+  );
+
+  const chartConfig = {
+    backgroundColor: 'purple',
+    backgroundGradientFrom: 'violet',
+    backgroundGradientTo: 'purple',
+    decimalPlaces: 2, // optional, defaults to 2dp
+    color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+    labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+    style: {
+      borderRadius: 20,
+    },
+    propsForDots: {
+      r: '6',
+      strokeWidth: '10',
+      stroke: '#ffa726',
+    },
+  };
+  return loading ? (
+    <ActivityIndicator
+      size="large"
+      color="purple"
+      style={{flex: 1, alignSelf: 'center'}}
+    />
+  ) : (
     <View style={styles.screen}>
       <FlatList
         keyExtractor={(item, index) => item._id}
@@ -32,11 +98,21 @@ const CandidateList = ({navigation, route}) => {
                   {
                     text: 'Yes',
                     style: 'default',
-                    onPress: () => navigation.navigate('StepOne', item),
+                    onPress: () => navigation.push('StepOne', item),
                   },
                 ],
               );
             }}
+          />
+        )}
+        ListFooterComponent={() => (
+          <BarChart
+            data={data}
+            width={Dimensions.get('screen').width - 10}
+            height={270}
+            chartConfig={chartConfig}
+            verticalLabelRotation={5}
+            style={{marginRight: 10}}
           />
         )}
       />
@@ -49,8 +125,6 @@ export default CandidateList;
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    padding: 10,
-    justifyContent: 'space-around',
-    flexWrap: 'wrap',
+    margin: 10,
   },
 });

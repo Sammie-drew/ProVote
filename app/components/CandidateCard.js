@@ -24,7 +24,7 @@ const CandidateCard = ({party, description, name, onPress}) => {
               }}
             />
           </View>
-          <Text style={{fontWeight: 'bold', fontSize: 19}}>{name}</Text>
+          <Text style={{fontWeight: 'bold', fontSize: 17}}>{name}</Text>
           <Text
             numberOfLines={2}
             style={{

@@ -6,7 +6,6 @@ import {createStackNavigator} from '@react-navigation/stack';
 import VoteScreen from '../screens/vote/VoteScreen';
 import CandidateList from '../screens/vote/CandidateList';
 import SteponeScreen from '../screens/vote/SteponeScreen';
-import StepTwoScreen from '../screens/vote/StepTwoScreen';
 
 const {Navigator, Screen} = createStackNavigator();
 
@@ -23,12 +22,6 @@ export default VoteNavigator = () => (
     <Screen
       name="StepOne"
       component={SteponeScreen}
-      options={{headerShown: false}}
-    />
-
-    <Screen
-      name="StepTwo"
-      component={StepTwoScreen}
       options={{headerShown: false}}
     />
   </Navigator>
