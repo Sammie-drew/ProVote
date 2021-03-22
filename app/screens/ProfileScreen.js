@@ -24,15 +24,31 @@ const ProfileScreen = ({navigation}) => {
 
   useEffect(() => {
     dispatch(getUserDetails());
-  }, [token]);
+  }, [token, dispatch]);
 
   const logOutHandler = () => {
     dispatch(logOut());
   };
 
+  const buttonHandler = async () => {
+    try {
+      const result = await FingerprintScanner.authenticate({
+        title: 'Vote',
+        cancelButton: 'Cancel',
+        description:
+          'Put your fingerprint to before you are allowed to view this credential',
+        fallbackEnabled: true,
+        onAttempt: (err) => console.log(err),
+      });
+      if (result) return navigation.navigate('ProfileList', user);
+    } catch (error) {
+      console.log('error :>> ', error);
+    }
+  };
+
   return loading ? (
     <View style={{flex: 1, justifyContent: 'center'}}>
-      <ActivityIndicator size="large" color="purple" />
+      <ActivityIndicator size="large" color="#00AC69" />
     </View>
   ) : (
     <View style={styles.screen}>
@@ -57,19 +73,8 @@ const ProfileScreen = ({navigation}) => {
       </View>
       <View style={styles.card}>
         <Text style={styles.info}>View Information</Text>
-        <TouchableOpacity
-          onPress={() => {
-            FingerprintScanner.authenticate({
-              title: 'Vote',
-              cancelButton: 'Cancel',
-              description:
-                'Put your fingerprint to before you are allowed to view this credential',
-              fallbackEnabled: true,
-            }).then(() => {
-              navigation.navigate('ProfileList', user);
-            });
-          }}>
-          <EvilIcons name="chevron-right" size={35} color="purple" />
+        <TouchableOpacity onPress={buttonHandler}>
+          <EvilIcons name="chevron-right" size={35} color="#00AC69" />
         </TouchableOpacity>
       </View>
       <TouchableOpacity style={styles.card} onPress={logOutHandler}>
@@ -95,6 +100,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     elevation: 5,
     justifyContent: 'space-between',
+    borderWidth: 2,
+    borderColor: '#00AC69',
   },
   circle: {
     height: 100,
@@ -112,7 +119,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   info: {
-    color: 'purple',
+    color: '#00AC69',
     fontWeight: 'bold',
     fontFamily: 'Roboto',
     fontSize: 16,

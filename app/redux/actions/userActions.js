@@ -121,10 +121,10 @@ export const login = (nin, password) => async (dispatch) => {
 };
 
 export const logOut = () => async (dispatch) => {
+  await storage.removeToken();
   dispatch({
     type: USER_LOGOUT,
   });
-  await storage.removeToken();
   dispatch({
     type: USER_DETAILS_RESET,
   });

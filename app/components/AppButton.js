@@ -12,7 +12,7 @@ const AppButton = ({loading, onPress, title}) => {
   return (
     <View>
       {loading ? (
-        <ActivityIndicator color="purple" size="large" />
+        <ActivityIndicator color="#00AC69" size="large" />
       ) : (
         <TouchableOpacity
           style={{

@@ -52,5 +52,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     padding: 10,
     margin: 10,
+    borderWidth: 2,
+    borderColor: '#00AC69',
   },
 });

@@ -19,10 +19,10 @@ const CandidateProfileScreen = ({navigation, route}) => {
       <TouchableOpacity
         style={{position: 'absolute', left: 20, top: 20, zIndex: 1}}
         onPress={() => navigation.goBack()}>
-        <Ionicons name="ios-arrow-back" size={24} color="black" />
+        <Ionicons name="ios-arrow-back" size={24} color="#00AC69" />
       </TouchableOpacity>
 
-      <View style={{borderBottomWidth: 2}}>
+      <View style={{borderBottomWidth: 2, borderColor: '#00AC69'}}>
         <Image
           source={require('../../assets/candidate.png')}
           style={styles.image}
@@ -67,6 +67,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     elevation: 6,
     margin: 10,
+    borderWidth: 2,
+    borderColor: '#00AC69',
   },
   topicText: {
     fontSize: 17,
@@ -77,6 +79,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 15,
     margin: 10,
+    borderWidth: 2,
+    borderColor: '#00AC69',
   },
   textDets: {
     textAlign: 'justify',

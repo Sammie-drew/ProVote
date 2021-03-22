@@ -11,8 +11,8 @@ const Footer = () => {
         },
       ]}>
       <View style={{flexDirection: 'row'}}>
-        <Text style={{fontWeight: 'bold', color: 'purple'}}>&#xa9;</Text>
-        <Text style={{color: 'purple', fontWeight: 'bold'}}> ProVote</Text>
+        <Text style={{fontWeight: 'bold', color: '#00AC69'}}>&#xa9;</Text>
+        <Text style={{color: '#00AC69', fontWeight: 'bold'}}> ProVote</Text>
       </View>
     </View>
   );

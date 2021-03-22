@@ -5,8 +5,9 @@ import {
   Text,
   View,
   TouchableOpacity,
-  Image,
 } from 'react-native';
+
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import {useSelector, useDispatch} from 'react-redux';
 
@@ -27,11 +28,8 @@ const HomeScreen = ({navigation}) => {
     <View style={styles.screen}>
       <StatusBar barStyle="dark-content" backgroundColor="white" />
 
-      <Image style={styles.image} source={require('../assets/logo.png')} />
-      <TouchableOpacity
-        onPress={() => navigation.navigate('Election Info')}
-        style={styles.card}>
-        <Text style={styles.title}>Election Info</Text>
+      <View style={styles.card}>
+        <Text style={styles.title}>ELECTION INFORMATION</Text>
         <Text style={styles.desc}>
           The elections in Provote are divided into {category.length} Forms.
         </Text>
@@ -40,10 +38,18 @@ const HomeScreen = ({navigation}) => {
 
         {category.map((cate) => (
           <Text style={styles.info} key={cate._id}>
-            {'\u2B24'} {cate.alias}: {cate.name}
+            <Text>{'\u2B24'} </Text>
+            {cate.alias}: {cate.name}
           </Text>
         ))}
-      </TouchableOpacity>
+
+        <View style={styles.circle}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('Election Info')}>
+            <Ionicons name="ios-arrow-forward" size={24} color="white" />
+          </TouchableOpacity>
+        </View>
+      </View>
       <Footer />
     </View>
   );
@@ -57,37 +63,46 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     justifyContent: 'space-evenly',
     alignItems: 'center',
+    padding: 10,
   },
   card: {
-    height: '30%',
+    height: 300,
     backgroundColor: '#fff',
     borderRadius: 10,
     elevation: 5,
-    padding: 10,
+    borderWidth: 2,
+    borderColor: '#00AC69',
+    padding: 20,
     justifyContent: 'space-between',
   },
   info: {
     color: '#000',
     fontFamily: 'Roboto',
-    fontSize: 12,
+    fontSize: 15,
     fontWeight: '600',
+    textAlign: 'left',
+    textTransform: 'capitalize',
+    padding: 1,
   },
-  image: {
-    height: 300,
-    width: 300,
-    borderRadius: 30,
+  circle: {
+    backgroundColor: '#00AC69',
+    width: 50,
+    height: 50,
+    borderRadius: 100,
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'flex-end',
   },
   title: {
     color: '#000',
     fontFamily: 'Roboto',
     fontSize: 20,
     fontWeight: 'bold',
-    alignSelf: 'center',
   },
   desc: {
     color: '#000',
     fontFamily: 'Roboto',
-    fontSize: 13,
+    fontSize: 17,
     fontWeight: 'bold',
   },
 });

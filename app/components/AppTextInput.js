@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     elevation: 4,
     borderWidth: 1,
-    borderColor: 'purple',
+    borderColor: '#00AC69',
   },
   icon: {
     marginRight: 10,

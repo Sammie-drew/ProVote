@@ -23,8 +23,6 @@ const CandidateList = ({navigation, route}) => {
 
   const {loading, pollOptions} = options;
 
-  console.log('pollOptions :>> ', pollOptions);
-
   useEffect(() => {
     dispatch(fetchPollOptions(polls._id));
   }, [dispatch]);
@@ -42,36 +40,27 @@ const CandidateList = ({navigation, route}) => {
   data.datasets[0].data.push(
     ...pollOptions.map((option) => option.votes.length),
   );
-  // console.log(data.datasets[0]);
-  console.log(
-    'pollOptions.map((option) => option.votes.length) :>> ',
-    pollOptions.map((option) => option.votes.length),
-  );
-  console.log(
-    'pollOptions.map((option) => option.value) :>> ',
-    pollOptions.map((option) => option.value),
-  );
 
   const chartConfig = {
-    backgroundColor: 'purple',
-    backgroundGradientFrom: 'violet',
-    backgroundGradientTo: 'purple',
-    decimalPlaces: 2, // optional, defaults to 2dp
+    backgroundColor: 'lightgreen',
+    backgroundGradientFrom: '#00AC69',
+    backgroundGradientTo: '#00AC69',
+    decimalPlaces: 1, // optional, defaults to 2dp
     color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
     labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
     style: {
       borderRadius: 20,
     },
-    propsForDots: {
-      r: '6',
-      strokeWidth: '10',
-      stroke: '#ffa726',
-    },
+    // propsForDots: {
+    //   r: '6',
+    //   strokeWidth: '10',
+    //   stroke: '#ffa726',
+    // },
   };
   return loading ? (
     <ActivityIndicator
       size="large"
-      color="purple"
+      color="#00AC69"
       style={{flex: 1, alignSelf: 'center'}}
     />
   ) : (
@@ -80,6 +69,7 @@ const CandidateList = ({navigation, route}) => {
         keyExtractor={(item, index) => item._id}
         data={polls.pollOptions}
         numColumns={2}
+        style={{backgroundColor: '#fff'}}
         showsVerticalScrollIndicator={false}
         renderItem={({item}) => (
           <CandidateCard
@@ -108,11 +98,12 @@ const CandidateList = ({navigation, route}) => {
         ListFooterComponent={() => (
           <BarChart
             data={data}
-            width={Dimensions.get('screen').width - 10}
+            width={Dimensions.get('screen').width - 20}
             height={270}
             chartConfig={chartConfig}
             verticalLabelRotation={5}
             style={{marginRight: 10}}
+            fromZero={true}
           />
         )}
       />
@@ -125,6 +116,7 @@ export default CandidateList;
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    margin: 10,
+    padding: 10,
+    backgroundColor: 'white',
   },
 });

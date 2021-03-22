@@ -17,7 +17,7 @@ const DetailsPage = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      {loading && <ActivityIndicator size="large" color="purple" />}
+      {loading && <ActivityIndicator size="large" color="#00AC69" />}
       {error && (
         <View>
           <Text>{error}</Text>

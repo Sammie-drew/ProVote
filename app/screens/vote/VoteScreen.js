@@ -1,6 +1,5 @@
 import React, {useEffect} from 'react';
 import {
-  Dimensions,
   StatusBar,
   StyleSheet,
   Text,
@@ -25,7 +24,11 @@ const VoteScreen = ({navigation}) => {
     <View style={styles.screen}>
       <StatusBar backgroundColor="white" barStyle="dark-content" />
       <View style={styles.miniCard}>
-        <Text style={{fontSize: 15, fontWeight: 'bold'}}>
+        <Text
+          style={{
+            fontSize: 15,
+            fontWeight: 'bold',
+          }}>
           Available Poll for the day
         </Text>
       </View>
@@ -34,7 +37,7 @@ const VoteScreen = ({navigation}) => {
         style={styles.card}
         onPress={() => navigation.navigate('CandidateList', polls)}>
         <Text style={styles.notice}>{polls.title}</Text>
-        <Ionicons name="md-finger-print" size={70} color="purple" />
+        <Ionicons name="md-finger-print" size={70} color="#00AC69" />
         <Text
           style={{
             fontSize: 17,
@@ -62,6 +65,7 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     padding: 10,
+    backgroundColor: '#fff',
   },
   card: {
     height: 200,
@@ -72,6 +76,8 @@ const styles = StyleSheet.create({
     elevation: 5,
     borderRadius: 10,
     marginBottom: 20,
+    borderWidth: 2,
+    borderColor: '#00AC69',
   },
   notice: {
     color: 'green',
@@ -85,6 +91,8 @@ const styles = StyleSheet.create({
     width: 200,
     borderRadius: 10,
     margin: 10,
+    borderWidth: 2,
+    borderColor: '#00AC69',
     elevation: 3,
   },
 });

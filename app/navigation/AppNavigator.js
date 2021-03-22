@@ -18,7 +18,7 @@ const AppNavigator = () => {
   return (
     <Navigator
       tabBarOptions={{
-        activeTintColor: 'purple',
+        activeTintColor: '#00AC69',
         inactiveTintColor: 'black',
         keyboardHidesTabBar: true,
       }}>

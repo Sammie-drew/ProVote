@@ -28,13 +28,14 @@ const CandidatesScreen = ({navigation, route}) => {
 
   return loading ? (
     <View style={{flex: 1, justifyContent: 'center'}}>
-      <ActivityIndicator size="large" color="purple" />
+      <ActivityIndicator size="large" color="#00AC69" />
     </View>
   ) : (
     <FlatList
       data={candidates}
       keyExtractor={(item) => item._id}
       numColumns={2}
+      style={{backgroundColor: '#fff'}}
       showsVerticalScrollIndicator={false}
       renderItem={({item}) => (
         <CandidateCard
@@ -49,7 +50,7 @@ const CandidatesScreen = ({navigation, route}) => {
           <TouchableOpacity
             style={{position: 'absolute', left: 30, zIndex: 1}}
             onPress={() => navigation.goBack()}>
-            <Ionicons name="ios-arrow-back" size={24} color="black" />
+            <Ionicons name="ios-arrow-back" size={24} color="#00AC69" />
           </TouchableOpacity>
           <Text style={styles.topicText}>CANDIDATES</Text>
         </View>
@@ -63,18 +64,23 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     padding: 10,
+    backgroundColor: 'white',
   },
   topic: {
-    padding: 10,
+    margin: 10,
     backgroundColor: '#fff',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10,
     elevation: 5,
+    height: 50,
+    borderWidth: 2,
+    borderColor: '#00AC69',
   },
   topicText: {
     fontSize: 17,
     fontWeight: 'bold',
+    color: '#00AC69',
   },
 });
 

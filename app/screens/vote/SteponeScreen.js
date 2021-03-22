@@ -30,7 +30,7 @@ const SteponeScreen = ({navigation, route}) => {
       cancelButton: 'Cancel',
       description: 'Put your fingerprint before you are allowed to vote',
       subTitle: 'Advanced Voting System',
-    }).then((result) => result && console.log(`I am working`));
+    });
 
     console.log(`it works here`);
     dispatch(vote(poll_Id, nin, votersId, id));
@@ -85,8 +85,7 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     padding: 10,
-    backgroundColor: '#eee',
+    backgroundColor: '#fff',
     justifyContent: 'center',
-    // alignItems: 'center',
   },
 });

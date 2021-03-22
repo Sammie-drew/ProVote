@@ -33,9 +33,9 @@ const ProfileListScreen = ({navigation, route}) => {
         <TouchableOpacity
           style={{marginRight: 20}}
           onPress={() => navigation.goBack()}>
-          <Ionicons name="ios-arrow-back" size={24} color="black" />
+          <Ionicons name="ios-arrow-back" size={24} color="#00AC69" />
         </TouchableOpacity>
-        <Text style={styles.cardText}>Credentials</Text>
+        <Text style={styles.cardText}>CREDENTIALS</Text>
       </View>
       <ScrollView>
         <Text>FistName</Text>
@@ -63,7 +63,7 @@ const ProfileListScreen = ({navigation, route}) => {
         <TouchableOpacity
           style={{alignSelf: 'center', margin: 10}}
           onPress={() => toggleVisibility()}>
-          <Entypo name={icon} size={20} color="purple" />
+          <Entypo name={icon} size={20} color="#00AC69" />
         </TouchableOpacity>
         {visible ? (
           <Text style={styles.secret}> * * * * * * * * * * </Text>
@@ -81,15 +81,18 @@ const styles = StyleSheet.create({
   card: {
     padding: 20,
     margin: 20,
-    backgroundColor: '#eee',
+    backgroundColor: '#fff',
     borderRadius: 10,
     elevation: 8,
     flexDirection: 'row',
+    borderWidth: 2,
+    borderColor: '#00AC69',
   },
   cardText: {
     fontFamily: 'Roboto',
     fontWeight: 'bold',
     fontSize: 20,
+    color: '#00AC69',
   },
   secret: {
     padding: 20,

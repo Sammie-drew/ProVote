@@ -18,9 +18,6 @@ const RootStackNavigator = () => {
     getUser();
   }, [token]);
 
-  console.log('token :>> ', token);
-  console.log('user :>> ', user);
-
   const getUser = async () => {
     setIsLoading(true);
     setIsReady(false);
