@@ -72,7 +72,7 @@ const LoginScreen = ({navigation}) => {
         <View style={{flexDirection: 'row', margin: 10}}>
           <Text>Don't have an account ? </Text>
           <TouchableOpacity onPress={() => navigation.push('Verify')}>
-            <Text style={{color: 'purple'}}>Register with ProVote</Text>
+            <Text style={{color: '#00AC69'}}>Register with ProVote</Text>
           </TouchableOpacity>
         </View>
         <Footer />

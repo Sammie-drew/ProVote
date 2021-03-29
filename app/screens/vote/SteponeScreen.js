@@ -25,28 +25,32 @@ const SteponeScreen = ({navigation, route}) => {
   const {loading, error, success} = useSelector((state) => state.postVote);
 
   const voteHandler = async ({nin, votersId}) => {
-    FingerprintScanner.authenticate({
-      title: 'ProVote',
-      cancelButton: 'Cancel',
-      description: 'Put your fingerprint before you are allowed to vote',
-      subTitle: 'Advanced Voting System',
-    });
+    try {
+      FingerprintScanner.release();
 
-    console.log(`it works here`);
-    dispatch(vote(poll_Id, nin, votersId, id));
-
-    success &&
-      Alert.alert(
-        'Provote Voting Scheme',
-        'You have successfully casted your vote',
-        [
-          {
-            text: 'Okay',
-            style: 'destructive',
-            onPress: () => navigation.navigate('Vote'),
-          },
-        ],
-      );
+      const result = await FingerprintScanner.authenticate({
+        title: 'ProVote',
+        cancelButton: 'Cancel',
+        description: 'Put your fingerprint before you are allowed to vote',
+        subTitle: 'Advanced Voting System',
+      });
+      if (result) dispatch(vote(poll_Id, nin, votersId, id));
+      success &&
+        Alert.alert(
+          'Provote Voting Scheme',
+          'You have successfully casted your vote',
+          [
+            {
+              text: 'Okay',
+              style: 'destructive',
+              onPress: () => navigation.navigate('Vote'),
+            },
+          ],
+        );
+      FingerprintScanner.release();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

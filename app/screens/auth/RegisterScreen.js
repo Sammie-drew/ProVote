@@ -26,6 +26,19 @@ const validationSchema = Yup.object().shape({
 const RegistertScreen = ({route, navigation}) => {
   const {currentUser} = route.params;
 
+  function getAge(dateString) {
+    let today = new Date();
+    let birthDate = new Date(dateString);
+    let age = today.getFullYear() - birthDate.getFullYear();
+    let m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+    return age;
+  }
+
+  const ageOfUser = getAge(currentUser.dob);
+
   const dispatch = useDispatch();
   const {loading, error, success} = useSelector((state) => state.registerUser);
 
@@ -55,7 +68,17 @@ const RegistertScreen = ({route, navigation}) => {
     success && navigation.navigate('Login');
   };
 
-  return (
+  return ageOfUser < 18 ? (
+    <View style={styles.notEligibleMessage}>
+      <Text style={styles.notEligibleMessageText}>
+        User not eligible to vote because User is too young to vote. USER MUST
+        BE 18 AND ABOVE
+      </Text>
+      <Text style={styles.notEligibleMessageText}>
+        User Current Age :{ageOfUser}
+      </Text>
+    </View>
+  ) : (
     <>
       <View style={styles.header}>
         <Text style={styles.headerText}>Sign Up to Pro Vote</Text>
@@ -161,5 +184,17 @@ const styles = StyleSheet.create({
   headerText: {
     fontSize: 20,
     marginTop: 10,
+  },
+  notEligibleMessage: {
+    flex: 1,
+    backgroundColor: 'pink',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+  },
+  notEligibleMessageText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    fontFamily: 'Roboto',
   },
 });

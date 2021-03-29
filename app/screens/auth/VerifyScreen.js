@@ -33,7 +33,7 @@ const VerifyScreen = ({navigation}) => {
   };
   return (
     <View style={styles.header}>
-      <StatusBar backgroundColor="purple" />
+      <StatusBar backgroundColor="white" />
       <ScrollView showsVerticalScrollIndicator={false}>
         <AppForm
           initialValues={{

@@ -32,6 +32,8 @@ const ProfileScreen = ({navigation}) => {
 
   const buttonHandler = async () => {
     try {
+      FingerprintScanner.release();
+
       const result = await FingerprintScanner.authenticate({
         title: 'Vote',
         cancelButton: 'Cancel',
@@ -41,6 +43,8 @@ const ProfileScreen = ({navigation}) => {
         onAttempt: (err) => console.log(err),
       });
       if (result) return navigation.navigate('ProfileList', user);
+      console.log('result', result);
+      FingerprintScanner.release();
     } catch (error) {
       console.log('error :>> ', error);
     }
@@ -112,6 +116,9 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 100,
     borderBottomLeftRadius: 100,
     elevation: 5,
+    // borderWidth: 2,
+    // borderTopWidth: 0,
+    // borderColor: '#00AC69',
   },
   details: {
     backgroundColor: '#fff',
